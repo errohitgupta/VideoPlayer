@@ -1,3 +1,46 @@
-<resources>
-    <string name="app_name">VideoPlayer</string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- The user visible name of the application. [CHAR LIMIT=20] -->
+
+    <string name="app_name">Video Player</string>
+
+    <string name="application_name">ExoPlayer Demo</string>
+
+    <string name="enable_background_audio">Play in background</string>
+
+    <string name="video">Video</string>
+
+    <string name="audio">Audio</string>
+
+    <string name="text">Text</string>
+
+    <string name="logging">Logging</string>
+
+    <string name="logging_normal">Normal</string>
+
+    <string name="logging_verbose">Verbose</string>
+
+    <string name="retry">Retry</string>
+
+    <string name="off">[off]</string>
+
+    <string name="drm_error_not_supported">Protected content not supported on API levels below 18</string>
+
+    <string name="drm_error_unsupported_scheme">This device does not support the required DRM scheme</string>
+
+    <string name="drm_error_unknown">An unknown DRM error occurred</string>
+
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <!-- Alert Box Strings -->
+    <string name="exit_box_title">Exit Video Player</string>
+    <string name="exit_box_message">Are you sure you want to exit Video Player?</string>
+    <string name="exit_box_positive_button">Exit</string>
+    <string name="exit_box_negative_button">Browse</string>
+
 </resources>
