@@ -42,21 +42,6 @@ public class PlayerControl implements MediaControllerView.MediaPlayerControl {
     }
 
     @Override
-    public boolean canSeekBackward() {
-        return true;
-    }
-
-    @Override
-    public boolean canSeekForward() {
-        return true;
-    }
-
-    @Override
-    public boolean isFullScreen() {
-        return false;
-    }
-
-    @Override
     public void toggleFullScreen() {
 
     }

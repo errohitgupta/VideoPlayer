@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         mVideoListView.setLayoutManager(mStaggeredLayoutManager);
         mVideoListAdapter = new VideoListAdapter(this);
         mVideoListView.setAdapter(mVideoListAdapter);
-        mVideoListView.setNestedScrollingEnabled(true);
     }
 
     @Override

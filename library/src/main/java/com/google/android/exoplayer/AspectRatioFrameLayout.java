@@ -41,6 +41,14 @@ public class AspectRatioFrameLayout extends FrameLayout {
     super(context);
   }
 
+  public AspectRatioFrameLayout(Context context, AttributeSet attrs, int defStyle) {
+    super(context,attrs,defStyle);
+  }
+
+  public AspectRatioFrameLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    super(context, attrs, defStyleAttr, defStyleRes);
+  }
+
   public AspectRatioFrameLayout(Context context, AttributeSet attrs) {
     super(context, attrs);
   }

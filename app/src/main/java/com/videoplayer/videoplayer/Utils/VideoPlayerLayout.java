@@ -11,8 +11,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -21,7 +19,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.CaptioningManager;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -40,7 +37,6 @@ import com.google.android.exoplayer.audio.AudioCapabilitiesReceiver;
 import com.google.android.exoplayer.drm.UnsupportedDrmException;
 import com.google.android.exoplayer.text.CaptionStyleCompat;
 import com.google.android.exoplayer.text.Cue;
-import com.google.android.exoplayer.text.SubtitleLayout;
 import com.google.android.exoplayer.util.Util;
 import com.videoplayer.videoplayer.R;
 
@@ -103,6 +99,11 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
         initVideoPlayerView(context);
     }
 
+    public VideoPlayerLayout(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        initVideoPlayerView(context);
+    }
+
     private void initVideoPlayerView(Context context){
         this.__context=context;
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -134,6 +135,11 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
 
     public int getContentType(){
         return this.__contentType;
+    }
+
+    public void setContentId(String contentId){ __contentId=contentId;}
+    public String getContentId(){
+        return this.__contentId;
     }
 
     public void setContentUri(Uri uri){
@@ -184,11 +190,6 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
     }
     public void setMediaControls(boolean __mediaControls) {
         this.__mediaControls = __mediaControls;
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
     }
 
     public void stopPlayer(){
@@ -357,6 +358,14 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
         __player.setPlayWhenReady(playWhenReady);
     }
 
+    private void releasePlayer() {
+        if (__player != null) {
+            __playerPosition = __player.getCurrentPosition();
+            __player.release();
+            __player = null;
+        }
+    }
+
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -374,14 +383,6 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
             __fullScreen=false;
             mediaController.updateFullScreen();
             Log.d("ScreenOrientation",__fullScreen+"");
-        }
-    }
-
-    private void releasePlayer() {
-        if (__player != null) {
-            __playerPosition = __player.getCurrentPosition();
-            __player.release();
-            __player = null;
         }
     }
 
@@ -411,6 +412,11 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
         if (__player != null) {
             __player.blockingClearSurface();
         }
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
     }
 
     public interface PlayerState{
