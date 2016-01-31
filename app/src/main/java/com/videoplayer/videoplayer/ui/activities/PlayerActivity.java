@@ -13,14 +13,14 @@ import android.widget.LinearLayout;
 
 import com.videoplayer.videoplayer.exoplayer.player.MediaControllerView;
 import com.videoplayer.videoplayer.R;
-import com.videoplayer.videoplayer.utils.VideoPlayerLayout;
+import com.videoplayer.videoplayer.utils.VideoPlayer;
 
 /**
  * Created by rohit on 27/01/16.
  */
-public class PlayerActivity extends AppCompatActivity implements VideoPlayerLayout.PlayerState, MediaControllerView.SetOrientation,MediaControllerView.MediaControllerViewToggler{
+public class PlayerActivity extends AppCompatActivity implements VideoPlayer.PlayerState, MediaControllerView.SetOrientation,MediaControllerView.MediaControllerViewToggler{
     private Toolbar mToolbar;
-    private VideoPlayerLayout mVideoPlayer;
+    private VideoPlayer mVideoPlayer;
     private FrameLayout mShareLayout,mPlayerLayout;
     private LinearLayout mReplayLayout;
     private View mView;
@@ -46,7 +46,7 @@ public class PlayerActivity extends AppCompatActivity implements VideoPlayerLayo
 
     private void initLayout(){
         mToolbar = (Toolbar) findViewById(R.id.transparent_toolbar);
-        mVideoPlayer = (VideoPlayerLayout) findViewById(R.id.video_player);
+        mVideoPlayer = (VideoPlayer) findViewById(R.id.video_player);
         mShareLayout = (FrameLayout) findViewById(R.id.share_layout);
         mReplayLayout = (LinearLayout) findViewById(R.id.replay_layout);
         mPlayerLayout = (FrameLayout) findViewById(R.id.player_layout);
@@ -55,8 +55,8 @@ public class PlayerActivity extends AppCompatActivity implements VideoPlayerLayo
 
     private void setUpVideoPlayBack(){
         mVideoPlayer.setMediaControls(true);
-        mVideoPlayer.setAspectRatio(VideoPlayerLayout.FILL_ASPECT_RATIO);
-        mVideoPlayer.setContentType(VideoPlayerLayout.TYPE_OTHER);
+        mVideoPlayer.setAspectRatio(VideoPlayer.FILL_ASPECT_RATIO);
+        mVideoPlayer.setContentType(VideoPlayer.TYPE_OTHER);
         mVideoPlayer.setContentUri(Uri.parse("http://redirector.c.youtube.com/videoplayback?id=604ed5ce52eda7ee&itag=22&source=youtube&sparams=ip,ipbits,expire,source,id&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=513F28C7FDCBEC60A66C86C9A393556C99DC47FB.04C88036EEE12565A1ED864A875A58F15D8B5300&key=ik0"));
         mVideoPlayer.start();
     }
@@ -101,7 +101,7 @@ public class PlayerActivity extends AppCompatActivity implements VideoPlayerLayo
     public void getPlayerState(int playerState) {
         Log.d("checkPlayerState", String.valueOf(playerState));
 
-        if(playerState == VideoPlayerLayout.STATE_ENDED){
+        if(playerState == VideoPlayer.STATE_ENDED){
             mVideoPlayer.stopPlayer();
             setShareLayout();
         }

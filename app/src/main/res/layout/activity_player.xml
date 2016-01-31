@@ -17,7 +17,7 @@
                 android:layout_height="260dp"
                 android:id="@+id/player_layout">
 
-                <com.videoplayer.videoplayer.utils.VideoPlayerLayout
+                <com.videoplayer.videoplayer.utils.VideoPlayer
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/video_player"/>

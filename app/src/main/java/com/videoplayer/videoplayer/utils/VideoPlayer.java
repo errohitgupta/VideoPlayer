@@ -45,7 +45,7 @@ import java.net.CookiePolicy;
 import java.util.List;
 import java.util.Map;
 
-public class VideoPlayerLayout extends AspectRatioFrameLayout implements SurfaceHolder.Callback, DemoPlayer.Listener,
+public class VideoPlayer extends AspectRatioFrameLayout implements SurfaceHolder.Callback, DemoPlayer.Listener,
         DemoPlayer.CaptionListener, DemoPlayer.Id3MetadataListener, AudioCapabilitiesReceiver.Listener{
 
     public static final int TYPE_DASH = 0;
@@ -89,12 +89,12 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
     private String cookieId=COOKIE;
     PlayerState mPlayerState;
 
-    public VideoPlayerLayout(Context context) {
+    public VideoPlayer(Context context) {
         super(context);
         initVideoPlayerView(context);
     }
 
-    public VideoPlayerLayout(Context context, AttributeSet attrs) {
+    public VideoPlayer(Context context, AttributeSet attrs) {
         super(context, attrs);
         initVideoPlayerView(context);
     }

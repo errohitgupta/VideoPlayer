@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/media_feed_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/media_frame">
-
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/media_feed_card"
+    android:background="@android:color/darker_gray"
+    card_view:cardElevation="5dp"
+    card_view:contentPadding="5dp">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        card_view:cardElevation="5dp"
-        card_view:contentPadding="5dp">
-        <LinearLayout
+        android:layout_height="@dimen/feed_card_height"
+        android:orientation="vertical"
+        android:id="@+id/media_feed">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height= "match_parent"
+            android:id="@+id/thumbnail_layout">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/media_feed_thumbnail"
+                android:src="@drawable/card_image"
+                android:scaleType="fitXY" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/media_feed">
-            <LinearLayout
+            android:id="@+id/video_player_layout"
+            android:visibility="gone">
+
+            <com.videoplayer.videoplayer.utils.VideoPlayer
                 android:layout_width="match_parent"
-                android:layout_height= "@dimen/feed_card_height"
-                android:id="@+id/thumbnail_layout">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/media_feed_thumbnail"
-                    android:src="@drawable/card_image"
-                    android:scaleType="fitXY" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:id="@+id/video_player"/>
 
-        </LinearLayout>
+        </FrameLayout>
 
-    </android.support.v7.widget.CardView>
+    </RelativeLayout>
 
-
-
-</RelativeLayout>
+</android.support.v7.widget.CardView>
