@@ -1,4 +1,4 @@
-package com.videoplayer.videoplayer.Utils;
+package com.videoplayer.videoplayer.utils;
 
 /**
  * Created by rohit on 27/01/16.
@@ -22,14 +22,14 @@ import android.view.accessibility.CaptioningManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.videoplayer.videoplayer.ExoPlayer.SmoothStreamingTestMediaDrmCallback;
-import com.videoplayer.videoplayer.ExoPlayer.WidevineTestMediaDrmCallback;
-import com.videoplayer.videoplayer.ExoPlayer.player.DashRendererBuilder;
-import com.videoplayer.videoplayer.ExoPlayer.player.DemoPlayer;
-import com.videoplayer.videoplayer.ExoPlayer.player.ExtractorRendererBuilder;
-import com.videoplayer.videoplayer.ExoPlayer.player.HlsRendererBuilder;
-import com.videoplayer.videoplayer.ExoPlayer.player.MediaControllerView;
-import com.videoplayer.videoplayer.ExoPlayer.player.SmoothStreamingRendererBuilder;
+import com.videoplayer.videoplayer.exoplayer.SmoothStreamingTestMediaDrmCallback;
+import com.videoplayer.videoplayer.exoplayer.WidevineTestMediaDrmCallback;
+import com.videoplayer.videoplayer.exoplayer.player.DashRendererBuilder;
+import com.videoplayer.videoplayer.exoplayer.player.DemoPlayer;
+import com.videoplayer.videoplayer.exoplayer.player.ExtractorRendererBuilder;
+import com.videoplayer.videoplayer.exoplayer.player.HlsRendererBuilder;
+import com.videoplayer.videoplayer.exoplayer.player.MediaControllerView;
+import com.videoplayer.videoplayer.exoplayer.player.SmoothStreamingRendererBuilder;
 import com.google.android.exoplayer.AspectRatioFrameLayout;
 import com.google.android.exoplayer.ExoPlayer;
 import com.google.android.exoplayer.audio.AudioCapabilities;
@@ -96,11 +96,6 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
 
     public VideoPlayerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initVideoPlayerView(context);
-    }
-
-    public VideoPlayerLayout(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
         initVideoPlayerView(context);
     }
 

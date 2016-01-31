@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.videoplayer.videoplayer.R;
-import com.videoplayer.videoplayer.Utils.AlertBox;
+import com.videoplayer.videoplayer.utils.AlertBox;
 import com.videoplayer.videoplayer.ui.adapters.VideoListAdapter;
 
 /**

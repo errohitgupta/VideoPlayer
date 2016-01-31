@@ -1,4 +1,4 @@
-package com.videoplayer.videoplayer.ExoPlayer;
+package com.videoplayer.videoplayer.exoplayer;
 
 /**
  * Created by rohit on 27/01/16.

@@ -1,4 +1,4 @@
-package com.videoplayer.videoplayer.ExoPlayer.player;
+package com.videoplayer.videoplayer.exoplayer.player;
 
 /**
  * Created by rohit on 27/01/16.
@@ -8,7 +8,7 @@ import android.media.MediaCodec;
 import android.os.Handler;
 import android.util.Log;
 
-import com.videoplayer.videoplayer.ExoPlayer.player.DemoPlayer.RendererBuilder;
+import com.videoplayer.videoplayer.exoplayer.player.DemoPlayer.RendererBuilder;
 import com.google.android.exoplayer.DefaultLoadControl;
 import com.google.android.exoplayer.LoadControl;
 import com.google.android.exoplayer.MediaCodecAudioTrackRenderer;
