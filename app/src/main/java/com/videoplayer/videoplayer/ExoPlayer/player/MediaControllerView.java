@@ -1,4 +1,4 @@
-package com.videoplayer.videoplayer.ExoPlayer.player;
+package com.videoplayer.videoplayer.exoplayer.player;
 
 /**
  * Created by rohit on 27/01/16.
@@ -93,19 +93,6 @@ public class MediaControllerView extends FrameLayout {
     private RelativeLayout mVideoFrame;
     private Handler mHandler = new MessageHandler(this);
 
-
-    public interface Elogger {
-        void playPlayer();
-
-        void pausePlayer();
-
-        void seek();
-
-    }
-
-    //public Elogger elogger;
-
-
     public interface SetOrientation {
         void playPortrait();
 
@@ -149,11 +136,6 @@ public class MediaControllerView extends FrameLayout {
         Log.i(TAG, TAG);
     }
 
-//    @Override
-//    public void onFinishInflate() {
-//        if (mRoot != null)
-//            initControllerView(mRoot);
-//    }
 
     public void setMediaPlayer(PlayerControl player) {
         mPlayer = player;
@@ -370,13 +352,13 @@ public class MediaControllerView extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        show(sDefaultTimeout);
+        show();
         return true;
     }
 
     @Override
     public boolean onTrackballEvent(MotionEvent ev) {
-        show(sDefaultTimeout);
+        show();
         return false;
     }
 
@@ -394,7 +376,7 @@ public class MediaControllerView extends FrameLayout {
                 || keyCode == KeyEvent.KEYCODE_SPACE) {
             if (uniqueDown) {
                 doPauseResume();
-                show(sDefaultTimeout);
+                show();
                 if (mPauseButton != null) {
                     mPauseButton.requestFocus();
                 }
@@ -406,7 +388,7 @@ public class MediaControllerView extends FrameLayout {
                 //elogger.playPlayer();
                 //Log.d("gdExoplayerTest", "play[" + "playin" + "]");
                 updatePausePlay();
-                show(sDefaultTimeout);
+                show();
             }
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP
@@ -416,7 +398,7 @@ public class MediaControllerView extends FrameLayout {
                 //elogger.pausePlayer();
                 //Log.d("gdExoplayerTest", "play[" + "playin" + "]");
                 updatePausePlay();
-                show(sDefaultTimeout);
+                show();
             }
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN
@@ -431,7 +413,7 @@ public class MediaControllerView extends FrameLayout {
             return true;
         }
 
-        show(sDefaultTimeout);
+        show();
         return super.dispatchKeyEvent(event);
     }
 
@@ -439,7 +421,7 @@ public class MediaControllerView extends FrameLayout {
         public void onClick(View v) {
             doPauseResume();
             trackPlayPause();
-            show(sDefaultTimeout);
+            show();
 
         }
     };
@@ -447,7 +429,7 @@ public class MediaControllerView extends FrameLayout {
     private OnClickListener mRootViewListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            show(sDefaultTimeout);
+            show();
             doToggleVideoScreen();
         }
     };
@@ -577,7 +559,7 @@ public class MediaControllerView extends FrameLayout {
             mDragging = false;
             setProgress();
             updatePausePlay();
-            show(sDefaultTimeout);
+            show();
             mHandler.sendEmptyMessage(SHOW_PROGRESS);
         }
     };
@@ -618,7 +600,7 @@ public class MediaControllerView extends FrameLayout {
             mPlayer.seekTo(pos);
             setProgress();
 
-            show(sDefaultTimeout);
+            show();
         }
     };
 
@@ -633,7 +615,7 @@ public class MediaControllerView extends FrameLayout {
             mPlayer.seekTo(pos);
             setProgress();
 
-            show(sDefaultTimeout);
+            show();
         }
     };
 
@@ -683,15 +665,8 @@ public class MediaControllerView extends FrameLayout {
 
         boolean canPause();
 
-        boolean canSeekBackward();
-
-        boolean canSeekForward();
-
-        boolean isFullScreen();
-
         void toggleFullScreen();
-//        void playPortrait();
-//        void playLanscape();
+
     }
 
     private static class MessageHandler extends Handler {

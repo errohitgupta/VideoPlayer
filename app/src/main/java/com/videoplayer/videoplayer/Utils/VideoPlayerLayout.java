@@ -1,4 +1,4 @@
-package com.videoplayer.videoplayer.Utils;
+package com.videoplayer.videoplayer.utils;
 
 /**
  * Created by rohit on 27/01/16.
@@ -11,8 +11,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -21,18 +19,17 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.CaptioningManager;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.videoplayer.videoplayer.ExoPlayer.SmoothStreamingTestMediaDrmCallback;
-import com.videoplayer.videoplayer.ExoPlayer.WidevineTestMediaDrmCallback;
-import com.videoplayer.videoplayer.ExoPlayer.player.DashRendererBuilder;
-import com.videoplayer.videoplayer.ExoPlayer.player.DemoPlayer;
-import com.videoplayer.videoplayer.ExoPlayer.player.ExtractorRendererBuilder;
-import com.videoplayer.videoplayer.ExoPlayer.player.HlsRendererBuilder;
-import com.videoplayer.videoplayer.ExoPlayer.player.MediaControllerView;
-import com.videoplayer.videoplayer.ExoPlayer.player.SmoothStreamingRendererBuilder;
+import com.videoplayer.videoplayer.exoplayer.SmoothStreamingTestMediaDrmCallback;
+import com.videoplayer.videoplayer.exoplayer.WidevineTestMediaDrmCallback;
+import com.videoplayer.videoplayer.exoplayer.player.DashRendererBuilder;
+import com.videoplayer.videoplayer.exoplayer.player.DemoPlayer;
+import com.videoplayer.videoplayer.exoplayer.player.ExtractorRendererBuilder;
+import com.videoplayer.videoplayer.exoplayer.player.HlsRendererBuilder;
+import com.videoplayer.videoplayer.exoplayer.player.MediaControllerView;
+import com.videoplayer.videoplayer.exoplayer.player.SmoothStreamingRendererBuilder;
 import com.google.android.exoplayer.AspectRatioFrameLayout;
 import com.google.android.exoplayer.ExoPlayer;
 import com.google.android.exoplayer.audio.AudioCapabilities;
@@ -40,7 +37,6 @@ import com.google.android.exoplayer.audio.AudioCapabilitiesReceiver;
 import com.google.android.exoplayer.drm.UnsupportedDrmException;
 import com.google.android.exoplayer.text.CaptionStyleCompat;
 import com.google.android.exoplayer.text.Cue;
-import com.google.android.exoplayer.text.SubtitleLayout;
 import com.google.android.exoplayer.util.Util;
 import com.videoplayer.videoplayer.R;
 
@@ -136,6 +132,11 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
         return this.__contentType;
     }
 
+    public void setContentId(String contentId){ __contentId=contentId;}
+    public String getContentId(){
+        return this.__contentId;
+    }
+
     public void setContentUri(Uri uri){
         this.__contentUri=uri;
     }
@@ -184,11 +185,6 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
     }
     public void setMediaControls(boolean __mediaControls) {
         this.__mediaControls = __mediaControls;
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
     }
 
     public void stopPlayer(){
@@ -357,6 +353,14 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
         __player.setPlayWhenReady(playWhenReady);
     }
 
+    private void releasePlayer() {
+        if (__player != null) {
+            __playerPosition = __player.getCurrentPosition();
+            __player.release();
+            __player = null;
+        }
+    }
+
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -374,14 +378,6 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
             __fullScreen=false;
             mediaController.updateFullScreen();
             Log.d("ScreenOrientation",__fullScreen+"");
-        }
-    }
-
-    private void releasePlayer() {
-        if (__player != null) {
-            __playerPosition = __player.getCurrentPosition();
-            __player.release();
-            __player = null;
         }
     }
 
@@ -411,6 +407,11 @@ public class VideoPlayerLayout extends AspectRatioFrameLayout implements Surface
         if (__player != null) {
             __player.blockingClearSurface();
         }
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
     }
 
     public interface PlayerState{

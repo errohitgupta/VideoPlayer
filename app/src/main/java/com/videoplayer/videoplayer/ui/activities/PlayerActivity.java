@@ -1,6 +1,5 @@
 package com.videoplayer.videoplayer.ui.activities;
 
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.videoplayer.videoplayer.ExoPlayer.player.MediaControllerView;
+import com.videoplayer.videoplayer.exoplayer.player.MediaControllerView;
 import com.videoplayer.videoplayer.R;
-import com.videoplayer.videoplayer.Utils.VideoPlayerLayout;
+import com.videoplayer.videoplayer.utils.VideoPlayerLayout;
 
 /**
  * Created by rohit on 27/01/16.

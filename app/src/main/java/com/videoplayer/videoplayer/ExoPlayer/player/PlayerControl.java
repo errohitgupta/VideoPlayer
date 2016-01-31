@@ -1,4 +1,4 @@
-package com.videoplayer.videoplayer.ExoPlayer.player;
+package com.videoplayer.videoplayer.exoplayer.player;
 
 /**
  * Created by rohit on 27/01/16.
@@ -39,21 +39,6 @@ public class PlayerControl implements MediaControllerView.MediaPlayerControl {
     @Override
     public boolean canPause() {
         return true;
-    }
-
-    @Override
-    public boolean canSeekBackward() {
-        return true;
-    }
-
-    @Override
-    public boolean canSeekForward() {
-        return true;
-    }
-
-    @Override
-    public boolean isFullScreen() {
-        return false;
     }
 
     @Override

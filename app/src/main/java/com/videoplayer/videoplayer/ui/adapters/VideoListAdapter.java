@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.videoplayer.videoplayer.R;
-import com.videoplayer.videoplayer.Utils.Starter;
+import com.videoplayer.videoplayer.utils.Starter;
 
 /**
  * Created by rohit on 27/01/16.

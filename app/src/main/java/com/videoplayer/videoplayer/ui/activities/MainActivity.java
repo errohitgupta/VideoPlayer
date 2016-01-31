@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.videoplayer.videoplayer.R;
-import com.videoplayer.videoplayer.Utils.AlertBox;
+import com.videoplayer.videoplayer.utils.AlertBox;
 import com.videoplayer.videoplayer.ui.adapters.VideoListAdapter;
 
 /**
@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         mVideoListView.setLayoutManager(mStaggeredLayoutManager);
         mVideoListAdapter = new VideoListAdapter(this);
         mVideoListView.setAdapter(mVideoListAdapter);
-        mVideoListView.setNestedScrollingEnabled(true);
     }
 
     @Override

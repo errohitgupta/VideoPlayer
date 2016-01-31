@@ -1,4 +1,4 @@
-package com.videoplayer.videoplayer.Utils;
+package com.videoplayer.videoplayer.utils;
 
 import android.content.Context;
 import android.content.Intent;
