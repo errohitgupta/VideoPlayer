@@ -55,7 +55,7 @@ public class PlayerActivity extends AppCompatActivity implements VideoPlayer.Pla
 
     private void setUpVideoPlayBack(){
         mVideoPlayer.setMediaControls(true);
-        mVideoPlayer.setAspectRatio(VideoPlayer.FILL_ASPECT_RATIO);
+//        mVideoPlayer.setAspectRatio(VideoPlayer.FILL_ASPECT_RATIO);
         mVideoPlayer.setContentType(VideoPlayer.TYPE_OTHER);
         mVideoPlayer.setContentUri(Uri.parse("http://redirector.c.youtube.com/videoplayback?id=604ed5ce52eda7ee&itag=22&source=youtube&sparams=ip,ipbits,expire,source,id&ip=0.0.0.0&ipbits=0&expire=19000000000&signature=513F28C7FDCBEC60A66C86C9A393556C99DC47FB.04C88036EEE12565A1ED864A875A58F15D8B5300&key=ik0"));
         mVideoPlayer.start();

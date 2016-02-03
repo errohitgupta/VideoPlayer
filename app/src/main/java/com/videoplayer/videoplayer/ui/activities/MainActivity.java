@@ -2,6 +2,7 @@ package com.videoplayer.videoplayer.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.util.Log;
 import com.videoplayer.videoplayer.R;
 import com.videoplayer.videoplayer.utils.AlertBox;
 import com.videoplayer.videoplayer.ui.adapters.VideoListAdapter;
+import com.videoplayer.videoplayer.utils.ExoPlayerRecyclerView;
 
 /**
  * Created by rohit on 27/01/16.
@@ -17,7 +19,7 @@ import com.videoplayer.videoplayer.ui.adapters.VideoListAdapter;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private Toolbar mToolbar;
-    private RecyclerView mVideoListView;
+    private ExoPlayerRecyclerView mVideoListView;
     private StaggeredGridLayoutManager mStaggeredLayoutManager;
     private RecyclerView.Adapter mVideoListAdapter;
 
@@ -34,14 +36,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initLayout(){
-        mVideoListView = (RecyclerView)findViewById(R.id.video_list_view);
+        mVideoListView = (ExoPlayerRecyclerView)findViewById(R.id.video_list_view);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
     private void setupVideoListView(){
-        mVideoListView.setHasFixedSize(true);
         mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mVideoListView.setLayoutManager(mStaggeredLayoutManager);
+        mVideoListView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         mVideoListAdapter = new VideoListAdapter(this);
         mVideoListView.setAdapter(mVideoListAdapter);
     }
@@ -53,6 +54,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mVideoListAdapter != null) {
+            mVideoListAdapter = null;
+        }
+
+        if (mVideoListView != null) {
+            mVideoListView.setAdapter(null);
+            mVideoListView.onRelease();
+
+            mVideoListView = null;
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume Called");
@@ -61,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        mVideoListView.onPausePlayer();
         Log.d(TAG, "onPause Called");
     }
 

@@ -9,8 +9,10 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,6 +21,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.CaptioningManager;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -45,7 +48,7 @@ import java.net.CookiePolicy;
 import java.util.List;
 import java.util.Map;
 
-public class VideoPlayer extends AspectRatioFrameLayout implements SurfaceHolder.Callback, DemoPlayer.Listener,
+public class VideoPlayer extends FrameLayout implements SurfaceHolder.Callback, DemoPlayer.Listener,
         DemoPlayer.CaptionListener, DemoPlayer.Id3MetadataListener, AudioCapabilitiesReceiver.Listener{
 
     public static final int TYPE_DASH = 0;
@@ -72,6 +75,7 @@ public class VideoPlayer extends AspectRatioFrameLayout implements SurfaceHolder
         defaultCookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
     }
 
+    private static VideoPlayer instance;
     private AudioCapabilitiesReceiver audioCapabilitiesReceiver;
     private static Context __context;
     private DemoPlayer __player;
@@ -82,7 +86,7 @@ public class VideoPlayer extends AspectRatioFrameLayout implements SurfaceHolder
     private boolean __mediaControls=true;
     private String __contentId;
     private View __shutterView;
-    private AspectRatioFrameLayout __videoFrame;
+    private FrameLayout __videoFrame;
     private MediaControllerView mediaController;
     private ProgressBar bufferingBar;
     private Boolean __fullScreen;
@@ -94,16 +98,30 @@ public class VideoPlayer extends AspectRatioFrameLayout implements SurfaceHolder
         initVideoPlayerView(context);
     }
 
-    public VideoPlayer(Context context, AttributeSet attrs) {
+    public VideoPlayer(Context context,@Nullable AttributeSet attrs) {
         super(context, attrs);
         initVideoPlayerView(context);
+    }
+
+    public VideoPlayer(Context context,@Nullable  AttributeSet attrs, int defStyle) {
+        super(context, attrs,defStyle);
+        initVideoPlayerView(context);
+    }
+
+    public static VideoPlayer getInstance(Context context){
+        if (instance != null) {
+            return instance;
+        } else {
+            instance = new VideoPlayer(context);
+            return instance;
+        }
     }
 
     private void initVideoPlayerView(Context context){
         this.__context=context;
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.videoplayer_view, this);
-        __videoFrame  = (AspectRatioFrameLayout) findViewById(R.id.video_frame);
+        __videoFrame  = (FrameLayout) findViewById(R.id.video_frame);
         __shutterView = findViewById(R.id.shutter);
         audioCapabilitiesReceiver = new AudioCapabilitiesReceiver(__context,this);
         audioCapabilitiesReceiver.register();
@@ -274,7 +292,7 @@ public class VideoPlayer extends AspectRatioFrameLayout implements SurfaceHolder
         __playerNeedsPrepare = true;
     }
 
-    public float getAspectRatio(int aspectRatioType){
+/*    public float getAspectRatio(int aspectRatioType){
         float aspectRatio= (float) 0.0;
         switch (aspectRatioType){
             case FILL_ASPECT_RATIO:
@@ -305,12 +323,40 @@ public class VideoPlayer extends AspectRatioFrameLayout implements SurfaceHolder
                 __videoFrame.setAspectRatio(getAspectRatio(aspectRatioType));
                 break;
         }
-    }
+    }*/
 
     @Override
     public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
         __shutterView.setVisibility(View.GONE);
-        __videoFrame.setAspectRatio(height == 0 ? 1 : (width * pixelWidthHeightRatio) / height);
+        calculateAspectRatio(width,height);
+    }
+
+    protected void calculateAspectRatio(int width, int height) {
+        int defaultWidth = 0;
+        int viewWidth = defaultWidth;
+        int viewHeight = defaultWidth;
+
+        int videoWidth = width;
+        int videoHeight = height;
+
+        float aspect = (float) videoWidth / videoHeight;
+
+        LayoutParams layoutParams = (LayoutParams) getLayoutParams();
+
+        if (((float) viewWidth / videoWidth) > ((float) viewHeight / videoHeight)) {
+            layoutParams.width = (int) (viewHeight * aspect + 0.5F);
+            layoutParams.height = viewHeight;
+        } else {
+            layoutParams.width = viewWidth;
+            layoutParams.height = (int) (viewWidth / aspect + 0.5F);
+        }
+
+        layoutParams.gravity = Gravity.FILL;
+
+
+        Log.d("20672067", "calculateAspectRatio:" + layoutParams.width + "--" + layoutParams.height);
+
+        setLayoutParams(layoutParams);
     }
 
     private DemoPlayer.RendererBuilder getRendererBuilder() {
@@ -416,6 +462,13 @@ public class VideoPlayer extends AspectRatioFrameLayout implements SurfaceHolder
 
     public interface PlayerState{
         void getPlayerState(int playerState);
+    }
+
+    public void onRelease() {
+        releasePlayer();
+        audioCapabilitiesReceiver.unregister();
+        instance = null;
+
     }
 
 }
