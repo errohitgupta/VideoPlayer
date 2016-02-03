@@ -131,8 +131,8 @@ public class MediaControllerView extends FrameLayout {
 
     public MediaControllerView(Context context) {
         this(context, true);
-        orientation = (SetOrientation) context;
-        mediaControllerViewToggler = (MediaControllerViewToggler) context;
+        /*orientation = (SetOrientation) context;
+        mediaControllerViewToggler = (MediaControllerViewToggler) context;*/
         Log.i(TAG, TAG);
     }
 

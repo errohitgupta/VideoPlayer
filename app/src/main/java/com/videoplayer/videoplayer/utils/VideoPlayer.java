@@ -8,10 +8,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.accessibility.CaptioningManager;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -92,6 +95,7 @@ public class VideoPlayer extends FrameLayout implements SurfaceHolder.Callback, 
     private Boolean __fullScreen;
     private String cookieId=COOKIE;
     PlayerState mPlayerState;
+    private int defaultWidth=0;
 
     public VideoPlayer(Context context) {
         super(context);
@@ -118,42 +122,45 @@ public class VideoPlayer extends FrameLayout implements SurfaceHolder.Callback, 
     }
 
     private void initVideoPlayerView(Context context){
-        this.__context=context;
+        __context=context;
+        Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Point point = new Point();
+        display.getSize(point);
+        defaultWidth = point.x;
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.videoplayer_view, this);
-        __videoFrame  = (FrameLayout) findViewById(R.id.video_frame);
+        __videoFrame  = (FrameLayout) findViewById(R.id.root);
         __shutterView = findViewById(R.id.shutter);
         audioCapabilitiesReceiver = new AudioCapabilitiesReceiver(__context,this);
         audioCapabilitiesReceiver.register();
         bufferingBar=(ProgressBar)findViewById(R.id.bufferingBar);
         __fullScreen=false;
-        mPlayerState=(PlayerState)this.__context;
     }
 
     public void setContentType(int type){
         this.__contentType=type;
     }
 
-    private void toggleControlsVisibility()  {
+/*    private void toggleControlsVisibility()  {
         if (mediaController.isShowing()) {
             mediaController.hide();
         } else {
             showControls();
         }
-    }
+    }*/
 
-    private void showControls() {
+/*    private void showControls() {
         mediaController.show(3000);
-    }
+    }*/
 
     public int getContentType(){
         return this.__contentType;
     }
-
+/*
     public void setContentId(String contentId){ __contentId=contentId;}
     public String getContentId(){
         return this.__contentId;
-    }
+    }*/
 
     public void setContentUri(Uri uri){
         this.__contentUri=uri;
@@ -170,12 +177,12 @@ public class VideoPlayer extends FrameLayout implements SurfaceHolder.Callback, 
         return __fullScreen;
     }
 
-    public void toggleControllerView() {
+/*    public void toggleControllerView() {
         Log.d("MediaController","ToggleView Called");
         toggleControlsVisibility();
-    }
+    }*/
 
-    public void mediaController(){
+ /*   public void mediaController(){
         View root = findViewById(R.id.root);
         root.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -198,16 +205,16 @@ public class VideoPlayer extends FrameLayout implements SurfaceHolder.Callback, 
                 return mediaController.dispatchKeyEvent(event);
             }
         });
-        mediaController = new MediaControllerView(__context);
-        mediaController.setAnchorView((ViewGroup) root);
-    }
-    public void setMediaControls(boolean __mediaControls) {
+//        mediaController = new MediaControllerView(__context);
+//        mediaController.setAnchorView((ViewGroup) root);
+    }*/
+/*    public void setMediaControls(boolean __mediaControls) {
         this.__mediaControls = __mediaControls;
-    }
+    }*/
 
     public void stopPlayer(){
         if(__player!=null){
-            mediaController.hide();
+//            mediaController.hide();
             __playerNeedsPrepare=true;
             __mediaControls=false;
             releasePlayer();
@@ -227,10 +234,10 @@ public class VideoPlayer extends FrameLayout implements SurfaceHolder.Callback, 
     @Override
     public void onStateChanged(boolean playWhenReady, int playbackState) {
         if (playbackState == ExoPlayer.STATE_ENDED) {
-            showControls();
+//            showControls();
         }
         String text = "playWhenReady=" + playWhenReady + ", playbackState=";
-        mPlayerState.getPlayerState(playbackState);
+//        mPlayerState.getPlayerState(playbackState);
         switch(playbackState) {
             case ExoPlayer.STATE_BUFFERING:
                 text += "buffering";
@@ -332,7 +339,6 @@ public class VideoPlayer extends FrameLayout implements SurfaceHolder.Callback, 
     }
 
     protected void calculateAspectRatio(int width, int height) {
-        int defaultWidth = 0;
         int viewWidth = defaultWidth;
         int viewHeight = defaultWidth;
 
@@ -383,12 +389,12 @@ public class VideoPlayer extends FrameLayout implements SurfaceHolder.Callback, 
             __player.addListener(this);
             __player.setCaptionListener(this);
             __player.setMetadataListener(this);
-            Log.d("PlayerPosition",__playerPosition+"");
+            Log.d("PlayerPosition", __playerPosition + "");
             __player.seekTo(__playerPosition);
             __playerNeedsPrepare = true;
-            this.mediaController();
-            mediaController.setMediaPlayer(__player.getPlayerControl());
-            mediaController.setEnabled(__mediaControls);
+//            this.mediaController();
+//            mediaController.setMediaPlayer(__player.getPlayerControl());
+//            mediaController.setEnabled(__mediaControls);
         }
         if (__playerNeedsPrepare) {
             __player.prepare();
@@ -412,17 +418,17 @@ public class VideoPlayer extends FrameLayout implements SurfaceHolder.Callback, 
         super.onConfigurationChanged(newConfig);
         Log.d("Screen Orientation", "Orientation Changed");
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Log.d("Screen Orientation","Landscape");
+            Log.d("Screen Orientation", "Landscape");
             MediaControllerView.setmFullScreen(true);
             __fullScreen=true;
-            mediaController.updateFullScreen();
+//            mediaController.updateFullScreen();
             Log.d("ScreenOrientation",__fullScreen+"");
         } else if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            Log.d("Screen Orientation","Potrait");
+            Log.d("Screen Orientation", "Potrait");
 
             MediaControllerView.setmFullScreen(false);
             __fullScreen=false;
-            mediaController.updateFullScreen();
+//            mediaController.updateFullScreen();
             Log.d("ScreenOrientation",__fullScreen+"");
         }
     }

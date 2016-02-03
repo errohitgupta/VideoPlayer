@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupVideoListView(){
-        mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mVideoListView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         mVideoListAdapter = new VideoListAdapter(this);
         mVideoListView.setAdapter(mVideoListAdapter);

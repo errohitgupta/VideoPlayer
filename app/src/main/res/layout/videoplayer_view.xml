@@ -6,31 +6,24 @@
     android:id="@+id/root"
     android:background="@android:color/black">
 
-    <FrameLayout
-        android:id="@+id/video_frame"
+    <SurfaceView
+        android:id="@+id/surface_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center">
+        android:layout_gravity="center"/>
 
-        <SurfaceView
-            android:id="@+id/surface_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"/>
+    <View
+        android:id="@+id/shutter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"/>
 
-        <View android:id="@+id/shutter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/black"/>
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/bufferingBar"
-            android:layout_gravity="center"
-            android:visibility="gone" />
-
-    </FrameLayout>
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bufferingBar"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 </FrameLayout>
